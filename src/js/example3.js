@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import Stats from 'three/addons/libs/stats.module.js';
 import fragmentShader from './../glsl/example3_fragment.glsl';
 import vertexShader from './../glsl/example3_vertex.glsl';
 
@@ -24,6 +25,9 @@ document.body.appendChild(renderer.domElement); // Append the renderer to the DO
 const controls = new OrbitControls(camera, renderer.domElement);
 // controls.update() must be called after any manual changes to the camera's transform
 controls.update();
+
+const stats = new Stats();
+document.body.appendChild(stats.dom);
 
 // ================================
 // 4) ADD A CUBE
@@ -55,6 +59,7 @@ function animate() {
   cube.rotation.z = Math.sin(elapsedTime) / 4 + elapsedTime / 20 + 5;
   controls.update();
   renderer.render(scene, camera);
+  stats.update();
 }
 
 // ================================

@@ -4,9 +4,11 @@ import Stats from 'three/addons/libs/stats.module.js';
 import fragmentShader from './../glsl/example4_fragment.glsl';
 import vertexShader from './../glsl/example4_vertex.glsl';
 
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
 let container, stats;
 
-let camera, scene, renderer;
+let camera, scene, renderer, controls;
 
 init();
 
@@ -74,6 +76,9 @@ function init() {
   container.appendChild(stats.dom);
 
   window.addEventListener('resize', onWindowResize);
+  controls = new OrbitControls(camera, renderer.domElement);
+  // controls.update() must be called after any manual changes to the camera's transform
+  controls.update();
 }
 
 function onWindowResize() {
@@ -96,6 +101,7 @@ function animate() {
   renderer.render(scene, camera);
 
   stats.update();
+  controls.update();
 }
 
 // https://threejs.org/examples/?q=shader#webgl_buffergeometry_rawshader
